@@ -1,0 +1,28 @@
+schema-version: 1.0
+
+description: |
+  The Gawk package contains programs for manipulating text files.
+
+  Installed programs: awk (link to gawk), gawk, and awk-5.1.0
+  Installed libraries: filefuncs.so, fnmatch.so, fork.so, inplace.so, intdiv.so, ordchr.so, readdir.so, readfile.so, revoutput.so, revtwoway.so, rwarray.so, and time.so (all in /usr/lib/gawk)
+  Installed directories: /usr/lib/gawk, /usr/libexec/awk, /usr/share/awk, and /usr/share/doc/gawk-5.1.0
+
+  Short Descriptions
+    awk: A link to gawk
+    gawk: A program for manipulating text files; it is the GNU implementation of awk
+    gawk-5.1.0: A hard link to gawk
+    
+builder:
+  origin: ./gawk-builder
+  var:
+    version: "{% version %}"
+
+
+var:
+  version: 5.1.0
+
+
+provision:
+  - copy:
+      builder: gawk
+      todir: /usr

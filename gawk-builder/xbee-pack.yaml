@@ -1,0 +1,31 @@
+schema-version: 1.0
+
+type: builder
+
+
+const:
+  srcDir: /usr/src
+  exportDir: /opt/gawk
+
+
+var:
+  version: 5.1.0
+
+provision:
+  - url:
+      from: https://ftp.gnu.org/gnu/gawk/gawk-{% version %}.tar.xz
+      todir: "{% srcDir %}"
+
+build:
+  - shell:
+      cmds:
+        - sed -i 's/extras//' Makefile.in
+        - ./configure --prefix={% exportDir %}
+        - make
+#        - make check
+        - make install
+        - mkdir -pv {% exportDir %}/share/doc/gawk-{% version %}
+        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {% exportDir %}/share/doc/gawk-{% version %}
+      directory: "{% srcDir %}/gawk-{% version %}"
+  - export: "{% exportDir %}"
+
