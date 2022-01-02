@@ -12,11 +12,7 @@ description: |
     gawk: A program for manipulating text files; it is the GNU implementation of awk
     gawk-5.1.0: A hard link to gawk
     
-builder:
-  origin: ./gawk-builder
-  var:
-    version: "{% version %}"
-
+builder: ./gawk-builder
 
 var:
   version: 5.1.0
@@ -25,4 +21,4 @@ var:
 provision:
   - copy:
       builder: gawk
-      todir: /usr
+      todir: /

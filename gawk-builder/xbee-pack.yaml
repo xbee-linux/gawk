@@ -7,10 +7,6 @@ const:
   srcDir: /usr/src
   exportDir: /opt/gawk
 
-
-var:
-  version: 5.1.0
-
 provision:
   - url:
       from: https://ftp.gnu.org/gnu/gawk/gawk-{% version %}.tar.xz
@@ -20,12 +16,12 @@ build:
   - shell:
       cmds:
         - sed -i 's/extras//' Makefile.in
-        - ./configure --prefix={% exportDir %}
+        - ./configure --prefix=/usr
         - make
 #        - make check
-        - make install
-        - mkdir -pv {% exportDir %}/share/doc/gawk-{% version %}
-        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {% exportDir %}/share/doc/gawk-{% version %}
+        - make install DESTDIR={% exportDir %}
+        - mkdir -pv {% exportDir %}/usr/share/doc/gawk-{% version %}
+        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {% exportDir %}/usr/share/doc/gawk-{% version %}
       directory: "{% srcDir %}/gawk-{% version %}"
   - export: "{% exportDir %}"
 
