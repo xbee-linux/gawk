@@ -1,5 +1,7 @@
 schema-version: 1.0
 
+type: builder
+
 description: |
   The Gawk package contains programs for manipulating text files.
 
@@ -12,13 +14,23 @@ description: |
     gawk: A program for manipulating text files; it is the GNU implementation of awk
     gawk-5.1.0: A hard link to gawk
     
-builder: ./gawk-builder
-
-var:
+in:
   version: 5.1.0
 
-
 provision:
-  - copy:
-      builder: gawk
-      todir: /
+  - url:
+      from: https://ftp.gnu.org/gnu/gawk/gawk-{% version %}.tar.xz
+      todir: "{% xbeeSrc %}"
+  - folder: "{% xbeeOut %}/usr/share/doc/gawk-{% version %}"
+
+build:
+  - shell:
+      cmds:
+        - sed -i 's/extras//' Makefile.in
+        - ./configure --prefix=/usr
+        - make
+        - make install DESTDIR={% xbeeOut %}
+        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {% xbeeOut %}/usr/share/doc/gawk-{% version %}
+      directory: "{% xbeeSrc %}/gawk-{% version %}"
+
+
