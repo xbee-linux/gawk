@@ -20,8 +20,8 @@ var:
 provision:
   - url:
       from: https://ftp.gnu.org/gnu/gawk/gawk-{{ .version }}.tar.xz
-      todir: "{{ .xbeeSrc }}"
-  - folder: "{{ .xbeeOut }}/usr/share/doc/gawk-{{ .version }}"
+      todir: "{{ .xbee.src }}"
+  - folder: "{{ .xbee.out }}/usr/share/doc/gawk-{{ .version }}"
 
 build:
   - shell:
@@ -29,8 +29,8 @@ build:
         - sed -i 's/extras//' Makefile.in
         - ./configure --prefix=/usr
         - make
-        - make install DESTDIR={{ .xbeeOut }}
-        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {{ .xbeeOut }}/usr/share/doc/gawk-{{ .version }}
-      directory: "{{ .xbeeSrc }}/gawk-{{ .version }}"
+        - make install DESTDIR={{ .xbee.out }}
+        - cp    -v doc/{awkforai.txt,*.{eps,pdf,jpg}} {{ .xbee.out }}/usr/share/doc/gawk-{{ .version }}
+      directory: "{{ .xbee.src }}/gawk-{{ .version }}"
 
 
