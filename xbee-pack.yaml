@@ -18,9 +18,7 @@ var:
   version: 5.1.0
 
 provision:
-  - url:
-      from: https://ftp.gnu.org/gnu/gawk/gawk-{{ .version }}.tar.xz
-      todir: "{{ .xbee.src }}"
+  - url: https://ftp.gnu.org/gnu/gawk/gawk-{{ .version }}.tar.xz
   - folder: "{{ .xbee.out }}/usr/share/doc/gawk-{{ .version }}"
 
 build:
