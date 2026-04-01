@@ -22,7 +22,7 @@ provision:
 
 build:
   - shell:
-      cmds:
+      cmd:
         - sed -i 's/extras//' Makefile.in
         - ./configure --prefix=/usr
         - make
